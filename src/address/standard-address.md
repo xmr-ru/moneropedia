@@ -42,5 +42,5 @@
 
 ## Источник
 
-* [StackExchenge answer](https://monero.stackexchange.com/questions/980/what-are-the-public-viewkeys-and-spendkeys)
+* [Ответ на StackExchange](https://monero.stackexchange.com/questions/980/what-are-the-public-viewkeys-and-spendkeys)
 * [https://xmr.llcoins.net/addresstests.html](https://xmr.llcoins.net/addresstests.html)

@@ -118,5 +118,5 @@
 
 * [monero-python](https://github.com/emesik/monero-python/blob/125d5eac0d4583b586b98e21b28fb9a291db26e5/monero/wallet.py#L195) - Самая легкая в использовании реализация
 * [get_subaddress_spend_public_key()](https://github.com/monero-project/monero/blob/16dc6900fb556b61edaba5e323497e9b8c677ae2/src/device/device_default.cpp#L143) - Эталонная реализация Monero
-* [historical discussion on Github](https://github.com/monero-project/monero/pull/2056) - Контекст для тех, кто не знает всех деталей
-* [StackExchange answer](https://monero.stackexchange.com/questions/10674/how-are-subaddresses-and-account-addresses-generated-from-master-wallet-keys/10676#10676) - Резюме от knaccc
+* [Историческая дискуссия на Github](https://github.com/monero-project/monero/pull/2056) - Контекст для тех, кто не знает всех деталей
+* [Ответ на StackExchange](https://monero.stackexchange.com/questions/10674/how-are-subaddresses-and-account-addresses-generated-from-master-wallet-keys/10676#10676) - Резюме от knaccc

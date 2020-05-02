@@ -53,4 +53,4 @@
 
 ## Ссылки
 
-* Вопросы [StackExchange](https://monero.stackexchange.com/questions/3179/what-is-an-integrated-address)
+* [Ответ на StackExchange](https://monero.stackexchange.com/questions/3179/what-is-an-integrated-address)
