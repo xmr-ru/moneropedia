@@ -12,7 +12,7 @@ preprocess = ["links", "index"]
 [output.html]
 default-theme = "Ayu"
 preferred-dark-theme = "Ayu"
-no-section-label = false
+no-section-label = true
 mathjax-support = true
 git-repository-url = "https://github.com/xmr-ru/moneropedia"
 git-repository-icon = "fa-github"
