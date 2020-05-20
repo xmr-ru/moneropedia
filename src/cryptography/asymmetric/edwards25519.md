@@ -63,7 +63,7 @@ Monero использует (очевидно, изменённый) вариа�
 * [Относительно простая для понимания криптография с использованием простых чисел на эллиптической кривой](https://blog.cloudflare.com/a-relatively-easy-to-understand-primer-on-elliptic-curve-cryptography/)
 * [RFC 8032, определяющий EdDSA](https://tools.ietf.org/html/rfc8032)
 * [Понимание криптографии Monero](https://xmr.ru/threads/18/) - прекрасная работа, написанная Luigi
-* [Ответ StackOverflow](https://monero.stackexchange.com/questions/2290/why-how-does-monero-generate-public-ed25519-keys-without-using-the-standard-publ)
+* [Ответ на StackOverflow](https://monero.stackexchange.com/questions/2290/why-how-does-monero-generate-public-ed25519-keys-without-using-the-standard-publ)
 * [Реализация на языке Python](https://github.com/monero-project/mininero/blob/master/ed25519.py) - не справочный материал, но облегчит понимание вопроса
 * [Шифрование точек в шестнадцатеричный формат](https://monero.stackexchange.com/questions/6050/what-is-the-base-point-g-from-the-whitepaper-and-how-is-it-represented-as-a)
 * [EdDSA в Wikipedia](https://en.wikipedia.org/wiki/EdDSA)

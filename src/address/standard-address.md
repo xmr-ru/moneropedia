@@ -30,11 +30,11 @@
 33          | 32               | Публичный ключ просмотра
 65          | 4                | Контрольная сумма ([хеш Keccak-f[1600]](https://github.com/monero-project/monero/blob/8f1f43163a221153403a46902d026e3b72f1b3e3/src/common/base58.cpp#L261) предыдущих 65 байтов, урезанная до первых [4](https://github.com/monero-project/monero/blob/8f1f43163a221153403a46902d026e3b72f1b3e3/src/common/base58.cpp#L53) байт)
 
-Всего размер адреса составляет 69 байт. Затем байты шифруются ([src](https://github.com/monero-project/monero/blob/8f1f43163a221153403a46902d026e3b72f1b3e3/src/common/base58.cpp#L240)) в соответствии со специфическим для Monero форматом [Base58](/cryptography/base58), и в результате получается строка из 95 символов. Пример стандартного адреса:
+Всего размер адреса составляет 69 байт. Затем байты шифруются ([src](https://github.com/monero-project/monero/blob/8f1f43163a221153403a46902d026e3b72f1b3e3/src/common/base58.cpp#L240)) в соответствии со специфическим для Monero форматом [Base58](https://wiki.xmr.ru/cryptography/base58.html), и в результате получается строка из 95 символов. Пример стандартного адреса:
 
 `4AdUndXHHZ6cfufTMvppY6JwXNouMBzSkbLYfpAV5Usx3skxNgYeYTRj5UzqtReoS44qo9mtmXCqY45DJ852K5Jv2684Rge`
 
-См. [исходный код.](https://github.com/monero-project/monero/blob/f7b9f44c1b0d53170fd7f53d37fc67648f3247a2/src/cryptonote_basic/cryptonote_basic_impl.cpp#L159).
+См. [исходный код](https://github.com/monero-project/monero/blob/f7b9f44c1b0d53170fd7f53d37fc67648f3247a2/src/cryptonote_basic/cryptonote_basic_impl.cpp#L159).
 
 ## Как генерируется​
 

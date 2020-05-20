@@ -1,40 +1,31 @@
 ---
-title: Proof of Work in Cryptocurrencies | Monero Documentation
+# Доказательство работы в криптовалютах
 ---
-# Proof of Work in Cryptocurrencies
 
-> Proof of work is a Sybil protection mechanism
+> Доказательство работы является защитным механизмом, не позволяющим произвести атаку Сивиллы
 
-## PoW protects against Sybil attack
+## Доказательство работы защищает от атаки Сивиллы
 
-In decentralized cryptocurrencies **untrusted** actors confirm (blocks of) transactions.
+В случае с децентрализованными криптовалютами, **не являющимся доверенными**, пользователям необходимо подтверждать транзакции (в блоках).
 
-If threshold voting was employed then the scheme would break immediately.
-This is because nothing prevents a single actor from creating arbitrary number of pseudonyms and take over the voting.
-In distributed systems this is known as Sybil attack.
+Если было применено пороговое голосование, работа схемы будет тут же нарушена, так как ничто не мешает отдельно взятому пользователю создать произвольное количество псевдонимов и решить таким образом результат голосования. В случае с распределёнными системами такое явление известно как «атака Сивиллы».
 
-Instead, cryptocurrencies employ proof of work. In the proof of work scheme,
-it is not the number of actors that counts. It is the amount of committed
-computational resources.
+Во избежание подобного сценария криптовалютами используется доказательство работы. Для реализации схемы PoW неважно количество участников. Важен объём задействованных вычислительных ресурсов.
 
-This, of course, is much harder to game.
-To endanger the scheme, an attacker would have to actually control majority (>50%) of computational resources.
-In practice, attacker would need this control over significant period of time.  
+Такую схему, безусловно, гораздо сложнее обойти: чтобы нарушить её, злоумышленнику придётся контролировать большую часть (более 50%) таких вычислительных ресурсов. На практике подобный контроль будет необходимо удерживать в течение длительного периода времени.
 
-## PoW is a leader election mechanism
+## Доказательство работы — механизм выбора победителя
 
-In distributed systems "leader election" is a process of establishing which node is responsible for (temporarily) coordinating the system.
+В распределённых системах «выбор лидера» является процессом определения, какой из узлов отвечает за координирование (временное) системы.
 
-In cryptocurrencies PoW is used to elect the node that "wins" the next block.
+В случае с криптовалютами PoW используется для определения узла, являющегося «победителем» по очередному блоку.
 
-Using PoW for leader election was one of the key inventions introduced by Bitcoin.
+Применение PoW, в случае с выбором лидера, стало одним из ключевых решений, реализованных Bitcoin.
 
-Competing nodes (known as "miners") work on a solution to artificial problem.
-Every now and then, someone randomly finds the solution.
-Chances are linearly proportional to committed computing power.
+Конкурирующие узлы (называемые «майнерами») работают над решением искусственной задачи. Время от времени один из них находит решение. Шансы линейно пропорциональны задействованной вычислительной мощи.
 
-The winner uses its solution to "underwrite" the block it assembled. Only blocks with valid solutions are accepted by the network.
+Победитель использует своё решение, чтобы «подписать» собранный блок. Сетью принимаются только блоки с правильными решениями.
 
-The winner also gets a reward for its work. The reward is a specific amount of cryptocurrency created "out of thin air" and assigned to self. The winner also gets all fees coming from transactions included in the block.
+За свою работу победитель также получает вознаграждение. Вознаграждение представляет собой определённую сумму в криптовалюте, созданную «из воздуха» и для себя. Победитель также получает все комиссии с транзакций, входящих в этот блок.
 
-The difficulty of the PoW problem is dynamically adjusted by the network, with the goal of finding blocks with a roughly constant rate (typically, every couple of minutes).
+Сложность задачи PoW динамически регулируется сетью. Цель состоит в том, чтобы блоки открывались с постоянной частотой (обычно каждую пару минут).

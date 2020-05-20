@@ -29,7 +29,7 @@
 
     P = xG
 
-где `G` является базовой точкой на кривой [edwards25519](/cryptography/asymmetric/edwards25519).
+где `G` является базовой точкой на кривой [edwards25519](http://localhost:3000/cryptography/asymmetric/edwards25519.html).
 
 Заменяем `P` на `xG` и получаем:
 
@@ -39,6 +39,6 @@
 
 ## Ссылки
 
-* [Ответ StackExchange](https://monero.stackexchange.com/questions/2883/what-is-a-key-image)
-* [Ещё один ответ SE](https://monero.stackexchange.com/questions/2158/what-is-moneros-mechanism-for-defending-against-a-double-spend-attack)
+* [Ответ на StackExchange](https://monero.stackexchange.com/questions/2883/what-is-a-key-image)
+* [Ещё один ответ StackExchange](https://monero.stackexchange.com/questions/2158/what-is-moneros-mechanism-for-defending-against-a-double-spend-attack)
 * [Критический баг](https://getmonero.org/2017/05/17/disclosure-of-a-major-bug-in-cryptonote-based-currencies.html) - касается верификации образов ключей, которая когда-то проводилась в Monero

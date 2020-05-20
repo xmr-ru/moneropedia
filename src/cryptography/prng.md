@@ -21,4 +21,4 @@ Monero использует PRNG на базе хеш-функции Keccak.
 ## Ссылки
 
 * [Исходный код](https://github.com/monero-project/monero/blob/1a4298685aa9e694bc555ae69be59d14d3790465/src/crypto/random.c)
-* [Ответ StackExchange](https://monero.stackexchange.com/a/2076/3218)
+* [Ответ на StackExchange](https://monero.stackexchange.com/a/2076/3218)

@@ -22,7 +22,7 @@
 65          | 8                | Компактный ID платежа, представляющий собой 8 случайно сгенерированных получателем байт. Следует отметить, что он не требует шифрования в самом адресе, но он скрывается в транзакции, которая проводится на интегрированный адрес, что не позволяет внешним наблюдателям связать платёж с адресом.
 73          | 4                | Контрольная сумма (хеш [Keccak-f[1600]](https://github.com/monero-project/monero/blob/8f1f43163a221153403a46902d026e3b72f1b3e3/src/common/base58.cpp#L261) предыдущих 65 байтов, урезанный до первых [4](https://github.com/monero-project/monero/blob/8f1f43163a221153403a46902d026e3b72f1b3e3/src/common/base58.cpp#L53) байт)
 
-Всего 77 байт. Затем байты шифруются ([src](https://github.com/monero-project/monero/blob/8f1f43163a221153403a46902d026e3b72f1b3e3/src/common/base58.cpp#L240)) в соответствии со специфическим для Monero форматом [Base58](/cryptography/base58), и в результате получается строка из 106 символов. Пример интегрированного адреса:
+Всего 77 байт. Затем байты шифруются ([src](https://github.com/monero-project/monero/blob/8f1f43163a221153403a46902d026e3b72f1b3e3/src/common/base58.cpp#L240)) в соответствии со специфическим для Monero форматом [Base58](https://wiki.xmr.ru/cryptography/base58.html), и в результате получается строка из 106 символов. Пример интегрированного адреса:
 
 `4LL9oSLmtpccfufTMvppY6JwXNouMBzSkbLYfpAV5Usx3skxNgYeYTRj5UzqtReoS44qo9mtmXCqY45DJ852K5Jv2bYXZKKQePHES9khPK`
 
