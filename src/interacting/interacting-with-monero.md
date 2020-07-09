@@ -13,13 +13,13 @@
 Проект Monero отделяет логическую часть сетевых узлов от логической части кошельков. Логическая часть кошельков обеспечивается тремя независимыми пользовательскими интерфейсами: GUI, CLI и HTTP API.
 
 ```
-# cd monero-gui-v0.14.0.0
+# cd monero-gui-v0.16.0.0
 
 # ---- guide to Monero GUI ----
 
-monero-GUI-guide.pdf
+monero-gui-wallet-guide.pdf
 
-# ---- executable files -----------
+# ---- main executable files -----------
 
 monerod
 
@@ -27,26 +27,27 @@ monero-wallet-cli
 monero-wallet-gui
 monero-wallet-rpc
 
-monero-gen-trusted-multisig
+# ---- extra executable files -----------
 
-monero-blockchain-export
-monero-blockchain-import
+extra/monero-wallet-cli
+extra/monero-wallet-rpc
+extra/monero-blockchain-prune
+extra/monero-gen-trusted-multisig
+extra/monero-gen-ssl-cert
+extra/monero-blockchain-export
+extra/monero-blockchain-import
 
-monero-blockchain-mark-spent-outputs
-monero-blockchain-usage
-monero-blockchain-ancestry
-monero-blockchain-depth
+# ---- don't bother with these ----------
 
-start-gui.sh
-
-# ---- directories ----------------
-
-libs
-plugins
-qml
+extra/monero-blockchain-stats
+extra/monero-blockchain-mark-spent-outputs
+extra/monero-blockchain-prune-known-spent-data
+extra/monero-blockchain-usage
+extra/monero-blockchain-ancestry
+extra/monero-blockchain-depth
 ```
 
-## Исполняемые файлы — что к чему
+## Исполняемые файлы
 
 | Исполняемый файл           | Описание  
 | -------------------------- |:-----------------------------------------------------------------------------------------------------------------------------------
@@ -54,13 +55,26 @@ qml
 | `monero-wallet-gui`        | Логическая часть кошелька и __графический пользовательский интерфейс__. <br />Требует наличия запущенного демона `monerod`.
 | `monero-wallet-cli`        | Логическая часть кошелька и пользовательский интерфейс с __поддержкой командной строки__. <br />Требует наличия запущенного демона `monerod`.
 | `monero-wallet-rpc`        | Логическая часть кошелька и __HTTP API__ (протокол JSON-RPC). <br />Требует наличия запущенного демона `monerod`.
+| `monero-blockchain-prune`  | Обрезание существующего локального блокчейна. Позволяет сэкономить до 2/3 дискового пространства (по состоянию на июнь 2020 года сократить занимаемое место с 85 Гб до 28 Гб). Лучше использовать эту опцию, а не `monerod --prune-blockchain`, которая только логически освобождает место внутри файла, в то время как сам файл остаётся большим. При использовании `monero-blockchain-prune` создаётся сжатая копия файла блокчейна. См. [tutorial1](https://monero.stackexchange.com/questions/11454/how-do-i-utilize-blockchain-pruning-in-the-gui-monero-wallet-gui), [tutorial2](https://www.publish0x.com/solareclipse/howto-prune-shrink-the-database-of-the-monero-blockchain-on-xpgwjx).
+| `monero-gen-ssl-cert`      | Создание 4096-битного приватного ключа RSA и самоподписанного сертификата TLS для использования с RPC интерфейсом `monerod`. См. [pull request](https://github.com/monero-project/monero/pull/5495).
+| `monero-gen-trusted-multisig`          | Создание multisig-кошелька. <br />См. главу [Мультиподпись](/multisignature/multisignature.md).
 | `monero-blockchain-export` | Экспорт блокчейна в файл `blockchain.raw`.
 | `monero-blockchain-import` | Импорт файла `blockchain.raw`, в идеале — вашей собственной копии.
-| `monero-gen-trusted-multisig`          | Создание multisig-кошелька. <br />См. главу [Мультиподпись](/multisignature/multisignature.md).
+
+
+## Унаследованные исполняемые файлы
+
+Скорее всего, вам никогда не придётся пользоваться унаследованными инструментами.
+
+| Исполняемый файл           | Описание
+| -------------------------- |:-----------------------------------------------------------------------------------------------------------------------------------
+| `monero-blockchain-stats`              | Выводит статистику, такую как количество транзакции (за сутки), блоков (за сутки) и байт (за сутки) на основе вашей локальной цепочки блоков.
 | `monero-blockchain-mark-spent-outputs` | Продвинутый инструмент, позволяющий избежать проблем, связанных с анонимностью, которые могут возникнуть вследствие форка Monero. Как правило, таких ситуаций не возникает. <br />См. соответствующий [коммит](https://github.com/monero-project/monero/commit/df6fad4c627b99a5c3e2b91b69a0a1cc77c4be14#diff-0410fba131d9a7024ed4dcf9fb4a4e07) и [пул реквест](https://github.com/monero-project/monero/pull/3322).
+| `monero-blockchain-prune-known-spent-data`  | Более ранняя опция ограниченного обрезания, позволяющая удалять известные потраченные выходы транзакций (использовалась до реализации RCT). Сегодня рекомендуется использовать `monero-blockchain-prune`. Позволяет сэкономить всего около 200 Мб. См. [коммит](https://github.com/monero-project/monero/commit/d855f9bb92dbfab707a0e37505906366de818a14).
 | `monero-blockchain-usage`              | Продвинутый инструмент, позволяющий избежать проблем, связанных с анонимностью, которые могут возникнуть вследствие форка Monero. <br />См. соответствующий [коммит](https://github.com/monero-project/monero/commit/0590f62ab64cf023d397b995072035986931a6b4) и [пул реквест](https://github.com/monero-project/monero/pull/3322).
 | `monero-blockchain-ancestry`           | Продвинутый исследовательский инструмент, позволяющий узнать исходную транзакцию, блок или блокчейн. Не используется большинством пользователей. <br />См. соответствующий [пул реквест](https://github.com/monero-project/monero/pull/4147/files).
 | `monero-blockchain-depth`              | Продвинутый исследовательский инструмент, позволяющий узнать глубину транзакции, блока или блокчейна. Не используется большинством пользователей. <br />См. соответствующий [коммит](https://github.com/monero-project/monero/commit/289880d82d3cb206a2cf4ae67d2deacdab43d4f4#diff-34abcc1a0c100efb273bf36fb95ebfa0).
+
 
 ## Взаимодействие
 
@@ -83,8 +97,7 @@ qml
 Это места хранения данных блокчейна, регистрационных файлов и журнала подключения к p2p сетям.
 По умолчанию директории данных создаются следующим образом:
 
-* `$HOME/.bitmonero/` (Linux);
-* `$HOME/Library/Application\ Support/` (macOS);
+* `$HOME/.bitmonero/` (Linux и macOS);
 * `C:\ProgramData\bitmonero\` (Windows).
 
 Следует помнить о том, что:
