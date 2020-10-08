@@ -22,6 +22,8 @@
 
 Также вы можете оказать финансовую поддержку в Monero на развитие данного проекта.
 
-QR-код: ![QR-код:](https://wiki.xmr.ru/wiki-qr.jpg)
+QR-код:
+![QR-код:](https://wiki.xmr.ru/wiki-qr.jpg)
 
-Адрес Monero: `8AxxoJGkcYs8juLSkk32TsSh96U9XMYxwJhLyugJP3RN2QnsCcszmBEBfdZftXdGTe3CRj17YYymSNu7Yf83H2kH76PoRJe`
+Адрес Monero:
+`8AxxoJGkcYs8juLSkk32TsSh96U9XMYxwJhLyugJP3RN2QnsCcszmBEBfdZftXdGTe3CRj17YYymSNu7Yf83H2kH76PoRJe`
