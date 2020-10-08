@@ -343,22 +343,42 @@ CLI-кошелёк имеет **возможность вывода справк
 
 `rescan_bc` - повторно сканирует блокчейн с нуля с потерей любой информации, которую невозможно восстановить на основе данных самого блокчейна
 
-ЧТО ОСТАЛОСЬ: задокументировать остающиеся команды
-    payment_id
-    payments <PID_1> [<PID_2> ... <PID_N>]
-    print_ring <key_image> | <txid>
-    save_known_rings
-    save_watch_only
-    set <option> [<value>]
-    set_daemon <host>[:<port>] [trusted|untrusted]
-    set_log <level>|{+,-,}<categories>
-    set_ring <filename> | ( <key_image> absolute|relative <index> [<index>...])
-    set_tx_note <txid> [free text note]
-    sign_transfer [export_raw]
-    submit_transfer
-    locked_sweep_all
-    sweep_all [index=<N1>[,<N2>,...]] [<priority>] [<ring_size>] [outputs=<N>] <address> [<payment_id>]
-    sweep_below <amount_threshold> [index=<N1>[,<N2>,...]] [<priority>] [<ring_size>] <address> [<payment_id>]
-    sweep_single [<priority>] [<ring_size>] [outputs=<N>] <key_image> <address> [<payment_id>]
-    transfer [index=<N1>[,<N2>,...]] [<priority>] [<ring_size>] (<URI> | <address> <amount>) [<payment_id>]
-    locked_transfer [index=<N1>[,<N2>,...]] [<priority>] [<ring_size>] (<URI> | <addr> <amount>) <lockblocks> [<payment_id>]
+### ЧТО ОСТАЛОСЬ?
+
+Задокументировать остающиеся команды:
+
+`payment_id`
+
+`payments <PID_1> [<PID_2> ... <PID_N>]`
+
+`print_ring <key_image> | <txid>`
+
+`save_known_rings`
+
+`save_watch_only`
+
+`set <option> [<value>]`
+
+`set_daemon <host>[:<port>] [trusted|untrusted]`
+
+`set_log <level>|{+,-,}<categories>`
+
+`set_ring <filename> | ( <key_image> absolute|relative <index> [<index>...])`
+
+`set_tx_note <txid> [free text note]`
+
+`sign_transfer [export_raw]`
+
+`submit_transfer`
+
+`locked_sweep_all`
+
+`sweep_all [index=<N1>[,<N2>,...]] [<priority>] [<ring_size>] [outputs=<N>] <address> [<payment_id>]`
+
+`sweep_below <amount_threshold> [index=<N1>[,<N2>,...]] [<priority>] [<ring_size>] <address> [<payment_id>]`
+
+`sweep_single [<priority>] [<ring_size>] [outputs=<N>] <key_image> <address> [<payment_id>]`
+
+`transfer [index=<N1>[,<N2>,...]] [<priority>] [<ring_size>] (<URI> | <address> <amount>) [<payment_id>]`
+
+`locked_transfer [index=<N1>[,<N2>,...]] [<priority>] [<ring_size>] (<URI> | <addr> <amount>) <lockblocks> [<payment_id>]`
