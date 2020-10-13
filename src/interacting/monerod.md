@@ -93,7 +93,7 @@ tail -f ~/.bitmonero/bitmonero.log           # watch the logs
 | `--no-zmq`          | Отключение ZMQ RPC сервера. Эту опцию следует **использовать**, чтобы ограничить возможность атаки и количество без надобности открытых портов (работа над ZMQ сервером продолжается, и вряд ли вы когда-либо будете использовать его).
 | `--no-igd`          | Отключение распределения UPnP порта маршрутизатора (протокол Internet Gateway Device). Эта опция добавляется для повышения уровня безопасности, если вы **не пользуетесь** NAT (вы можете привязаться напрямую к публичному IP или использовать Tor).
 | `--max-txpool-weight`         | Задаёт максимальный размер пула транзакций (в байтах). По умолчанию этот размер составляет 648000000 (~618 Мб). Это транзакции, ожидающие подтверждения (ещё не включённые в какой-либо блок).
-| `--enforce-dns-checkpointing` | Активирует экстренные контрольные точки, устанавливаемые операторами [MoneroPulse](https://wiki.xmr.ru/infrastructure/networks/moneropulse.html). Такую опцию стоит применять к не сопровождаемым (автоматическим) узлам. <br /><br />Если встречается хеш блока, не соответствующий определённой контрольной точке, произойдёт «откат» локального блокчейна на несколько блоков, в результате чего, текущее направление будет заблокировано операторами MoneroPulse и они сочтут его недействительным форком. В журнале появится запись:  `ERROR` `Local blockchain failed to pass a checkpoint, rolling back! (ОШИБКА Локальный блокчейн не прошёл контрольную точку, откат!)`. В конечном счёте альтернативный («исправленный») форк станет актуальным направлением, и узел переключится на него, переключившись с «недействительного» форка.<br /><br />По умолчанию при такой расстановке контрольных точек в журнале только появляется следующее уведомление о расхождении: `ERROR` `WARNING: local blockchain failed to pass a MoneroPulse checkpoint, and you could be on a fork. You should either sync up from scratch, OR download a fresh blockchain bootstrap, OR enable checkpoint enforcing with the --enforce-dns-checkpointing command-line option (ПРЕДУПРЕЖДЕНИЕ ОБ ОШИБКЕ: локальный блокчейн не прошёл контрольную точку MoneroPulse, и вы можете находиться в форке. Вам необходимо либо синхронизироваться с самого начала, ЛИБО активировать контрольную точку, используя опцию командной строки --enforce-dns-checkpointing)`.<br /><br />Ссылка: [исходный код](https://github.com/monero-project/monero/blob/22a6591a70151840381e327f1b41dc27cbdb2ee6/src/cryptonote_core/blockchain.cpp#L3614).
+| `--enforce-dns-checkpointing` | Активирует экстренные контрольные точки, устанавливаемые операторами [MoneroPulse](https://wiki.xmr.ru/infrastructure/networks/moneropulse.html). Такую опцию стоит применять к не сопровождаемым (автоматическим) узлам. <br /><br />Если встречается хеш блока, не соответствующий определённой контрольной точке, произойдёт «откат» локального блокчейна на несколько блоков, в результате чего, текущее направление будет заблокировано операторами MoneroPulse и они сочтут его недействительным форком. В журнале появится запись: `ERROR` `Local blockchain failed to pass a checkpoint, rolling back! (ОШИБКА Локальный блокчейн не прошёл контрольную точку, откат!)`. В конечном счёте альтернативный («исправленный») форк станет актуальным направлением, и узел переключится на него, переключившись с «недействительного» форка.<br /><br />По умолчанию при такой расстановке контрольных точек в журнале только появляется следующее уведомление о расхождении: `ERROR` `WARNING: local blockchain failed to pass a MoneroPulse checkpoint, and you could be on a fork. You should either sync up from scratch, OR download a fresh blockchain bootstrap, OR enable checkpoint enforcing with the --enforce-dns-checkpointing command-line option (ПРЕДУПРЕЖДЕНИЕ ОБ ОШИБКЕ: локальный блокчейн не прошёл контрольную точку MoneroPulse, и вы можете находиться в форке. Вам необходимо либо синхронизироваться с самого начала, ЛИБО активировать контрольную точку, используя опцию командной строки --enforce-dns-checkpointing)`.<br /><br />Ссылка: [исходный код](https://github.com/monero-project/monero/blob/22a6591a70151840381e327f1b41dc27cbdb2ee6/src/cryptonote_core/blockchain.cpp#L3614).
 | `--disable-dns-checkpoints`   | Контрольные точки [MoneroPulse](https://wiki.xmr.ru/infrastructure/networks/moneropulse.html), заданные разработчиками, будут сброшены. Тем не менее, очевидно, что контрольные точки будут по-прежнему активны.
 
 #### P2P cеть:
@@ -151,7 +151,7 @@ TСледующие опции определяют участие вашего 
 | Опция                           | Описание
 |---------------------------------|--------------------------------------------------------------------------------------------------------------------------------------
 | `--public-node`                 | Сообщает другим пользователям, что они могут использовать этот узел как удалённый для подключения своих кошельков. Требует использования `--restricted-rpc`, `--rpc-bind-ip` и `--confirm-external-bind`. Без `--public-node` узел всё ещё может оставаться публичным (при условии, что установлены другие соответствующие опции), но он не будет виден другим как таковой в P2P сети. Эта опция позволяет кошелькам автоматически обнаруживать публичные узлы (то есть, пользователю не приходится искать их «вручную»).
-| `--rpc-bind-ip`                 | IP, от которого следует принимать данные. По умолчанию используется `127.0.0.1`, поскольку API даёт все административные возможности в отношении узла. Можно установить `0.0.0.0`, чтобы получать информацию по всем интерфейсам, но только в сочетании с опциями `*-restricted-*` **и**  `--confirm-external-bind`.
+| `--rpc-bind-ip`                 | IP, от которого следует принимать данные. По умолчанию используется `127.0.0.1`, поскольку API даёт все административные возможности в отношении узла. Можно установить `0.0.0.0`, чтобы получать информацию по всем интерфейсам, но только в сочетании с опциями `*-restricted-*` **и** `--confirm-external-bind`.
 | `--rpc-bind-port`               | TCP порт, от которого следует принимать данные. По умолчанию `18081` основная сеть (mainnet), `28081` тестовая сеть (testnet) и `38081` отладочная сеть (stagenet).
 | `--rpc-bind-ipv6-address`       | Указывает IPv6, который нужно отслеживать. По умолчанию `::1` (localhost). В данном случае применимы все те же примечания, что и к `--rpc-bind-ip.
 | `--rpc-use-ipv6`                | Включает IPv6 для RPC сервера (по умолчанию отключено).
@@ -284,58 +284,58 @@ TСледующие опции определяют участие вашего 
 
 | Опция                              | Описание
 |------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------
-| `flush_txpool [<txid>]`            | Flush specified transaction from transactions pool, or flush the whole transactions pool if <txid> was not provided.
-| `print_pool`                       | Print the transaction pool using a verbose format.
-| `print_pool_sh`                    | Print the transaction pool using a short format.
-| `print_pool_stats`                 | Print the transaction pool's statistics (number of transactions, memory size, fees, double spend attempts etc).
+| `flush_txpool [<txid>]`            | Исключает указанную транзакцию из пула транзакций или очищает весь пул транзакций, если отдельная транзакция не была указана.
+| `print_pool`                       | Отображает информацию о пуле транзакций в полном формате.
+| `print_pool_sh`                    | Отображает информацию о пуле транзакций в кратком формате.
+| `print_pool_stats`                 | Отображает статистические данные пула транзакций (количество транзакций, объём памяти, комиссии, попытки двойной траты и так далее).
 
-#### Transactions
-
-| Опция                                                      | Описание
-|------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------
-| `print_coinbase_tx_sum <start_height> [<block_count>]`     | Show a sum of all emitted coins and paid fees within specified range. Example:<br />`./monerod print_coinbase_tx_sum 0 1000000000000`
-| `print_tx <transaction_hash> [+hex] [+json]`               | Show specified transaction as JSON and/or HEX.
-| `relay_tx <txid>`                                          | Force relaying the transaction. Useful if you want to rebroadcast the transaction for any reason or if transaction was previously created with "do_not_relay":true.
-
-#### Blockchain
+#### Транзакции
 
 | Опция                                                      | Описание
 |------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------
-| `print_height`                                             | Show local blockchain height.
-| `sync_info`                                                | Show blockchain sync progress and connected peers along with download / upload stats.
-| `print_bc <begin_height> [<end_height>]`                   | Show blocks in range `<begin_height>`..`<end_height>`. The information will include block id, height, timestamp, version, size, weight, number of non-coinbase transactions, difficulty, nonce, and reward.  
-| `print_block <block_hash> | <block_height>`                | Show detailed data of specified block.
-| `hard_fork_info`                                           | Show current consensus version and future hard fork block height, if any.
-| `is_key_image_spent <key_image>`                           | Check if specified [key image](https://wiki.xmr.ru/cryptography/asymmetric/key-image.html) is spent. Key image is a hash.
+| `print_coinbase_tx_sum <start_height> [<block_count>]`     | Показывает сумму всех выпущенных монет и уплаченных комиссии в заданном диапазоне. Например:<br />`./monerod print_coinbase_tx_sum 0 1000000000000`
+| `print_tx <transaction_hash> [+hex] [+json]`               | Показывает указанную транзакцию в формате JSON и/или HEX.
+| `relay_tx <txid>`                                          | Запускает ретрансляцию транзакции. Полезная опция, если вы по какой-то причине пожелаете ретранслировать транзакцию или же, если транзакция была ранее создана с параметром "do_not_relay":true.
 
-#### Manage daemon
+#### Блокчейн
 
 | Опция                                                      | Описание
 |------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------
-| `exit`, `stop_daemon`                                      | Ask daemon to exit gracefully. The `exit` and `stop_daemon` are identical (one is alias of the other).
-| `set_log <level>|<{+,-,}categories>`                       | Set the current log level/categories where `<level>` is a number 0-4.
-| `print_status`                                             | Show if daemon is running.
-| `update (check|download)`                                  | Check if update is available and optionally download it. The hash is SHA-256. On linux use `sha256sum` to verify. Example output:<br />`Update available: v0.13.0.4: https://downloads.getmonero.org/cli/monero-linux-x64-v0.13.0.4.tar.bz2, hash 693e1a0210201f65138ace679d1ab1928aca06bb6e679c20d8b4d2d8717e50d6`<br/>`Update downloaded to: /opt/monero-v0.13.0.2/monero-linux-x64-v0.13.0.4.tar.bz2`
+| `print_height`                                             | Показывает высоту локального блокчейна.
+| `sync_info`                                                | Показывает прогресс синхронизации блокчейна и подсоединённые одноранговые узлы вместе со статистикой скачивания/загрузки.
+| `print_bc <begin_height> [<end_height>]`                   | Показывает блоки в диапазоне `<begin_height>`..`<end_height>`. Отображаемая информация включает в себя идентификатор блока, высоту, временную метку, версию, размер, вес, количество транзакций, не являющихся coinbase-транзакциями, сложность, нонс и вознаграждение.
+| `print_block <block_hash> | <block_height>`                | Показывает информацию в ключе указанного блока.
+| `hard_fork_info`                                           | Показывает текущую версию алгоритма консенсуса и высоту блока, на котором произойдёт следующий хардфорк, если таковой планируется.
+| `is_key_image_spent <key_image>`                           | Проверяет, был ли потрачен указанный [образ ключа](https://wiki.xmr.ru/cryptography/asymmetric/key-image.html). Образ ключа является хешем.
 
-#### Mining
-
-| Опция                                                      | Описание
-|------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------
-| `show_hr`                                                  | Ask `monerod` daemon to stop printing current hash rate. Relevant only if `monerod` is mining.
-| `hide_hr`                                                  | Ask `monerod` daemon to print current hash rate. Relevant only if `monerod` is mining.
-| `start_mining <addr> [<threads>] [do_background_mining] [ignore_battery]`   | Ask `monerod`daemon to start mining. Block reward will go to `<addr>`.
-| `stop_mining`                                              | Ask `monerod` daemon to stop mining.
-
-#### Testing Monero itself
+#### Управление демоном
 
 | Опция                                                      | Описание
 |------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------
-| `start_save_graph`                                         | Start saving data for dr Monero.
-| `stop_save_graph`                                          | Stop saving data for dr Monero.
+| `exit`, `stop_daemon`                                      | Запрос надлежащего отключения демона. Опции `exit` и `stop_daemon` идентичны (одна является альтернативой для другой).
+| `set_log <level>|<{+,-,}categories>`                       | Устанавливает уровень детализации журнала собрытий/категорий, где `<level>` число от 0 до 4.
+| `print_status`                                             | Показывает, запущен ли демон.
+| `update (check|download)`                                  | Показывает, доступно ли обновление, и при необходимости позволяет загрузите его (hash обозначает SHA-256). В операционых системах по типу Linux для верификации воспользуйтесь командной `sha256sum`. Пример:<br />`Update available: v0.13.0.4: https://downloads.getmonero.org/cli/monero-linux-x64-v0.13.0.4.tar.bz2, hash 693e1a0210201f65138ace679d1ab1928aca06bb6e679c20d8b4d2d8717e50d6`<br/>`Update downloaded to: /opt/monero-v0.13.0.2/monero-linux-x64-v0.13.0.4.tar.bz2`
 
-#### Legacy
+#### Майнинг
 
 | Опция                                                      | Описание
 |------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------
-| `save`                                                     | Flush blockchain data to disk. This is normally no longer necessary as `monerod` saves the blockchain automatically on exit.
-| `output_histogram [@<amount>] <min_count> [<max_count>]`   | Show number of outputs for each amount denomination. This was only relevant in the pre-RingCT era. The old wallet used this to determine which outputs can be used for the requested mixin. With RingCT denominations are irrelevant as amounts are hidden. More info in [these SA answers](https://monero.stackexchange.com/search?q=%22output_histogram%22).
+| `show_hr`                                                  | Запрос демона `monerod` об остановке отображения текущего хешрейта. Используется только в том случае, если `monerod` находится в режиме майнинга.
+| `hide_hr`                                                  | Запрос демона `monerod` об отображении текущего хешрейта. Используется только в том случае, если `monerod` находится в режиме майнинга.
+| `start_mining <addr> [<threads>] [do_background_mining] [ignore_battery]`   | Запрос демона `monerod` о запуске майнинга. Вознаграждение за вычисление блока будет направлено на `<addr>`.
+| `stop_mining`                                              | Запрос демона `monerod` об остановке майнинга.
+
+#### Тестирование Monero
+
+| Опция                                                      | Описание
+|------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------
+| `start_save_graph`                                         | Запуск сохранения данных для dr Monero.
+| `stop_save_graph`                                          | Остановка сохранения данных для dr Monero.
+
+#### Унаследованные опции
+
+| Опция                                                      | Описание
+|------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------
+| `save`                                                     | Сброс данных блокчейна на диск. Как правило, этого не требуется, поскольку `monerod` сохраняет блокчейн автоматически при выходе.
+| `output_histogram [@<amount>] <min_count> [<max_count>]`   | Показывает количество выходов для каждой суммы. Опция использовалась только до реализации RingCT. Старый кошелёк использовал эту опцию, чтобы определить, какие выходы можно использовать для смешивания. После введения RingCT размер сумм стал не важен, поскольку сами суммы теперь скрывались. Больше информации можно найти здесь в разделе [ответов на monero.stackexchange.com](https://monero.stackexchange.com/search?q=%22output_histogram%22).
