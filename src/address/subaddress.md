@@ -12,9 +12,11 @@
 
 ## Не позволяйте связывать ваши платежи
 
-Они не позволяют тому, кто платит, связать ваши платежи вместе. Вы просто каждый раз генерируете новый подадрес. Поэтому службам, подобным [Shapeshift](https://shapeshift.io), неизвестно, что вы снова получили Monero.
+To prevent the payer from linking your payouts together simply generate a new subaddress for each payout. This way specific service (like anonymous exchange) that sends you Monero won't (easilly) know it is you again receving Monero.
 
-Следует отметить, что это не поможет, если у вас есть свой аккаунт у такой службы. Тогда ваши платежи уже связываются в базе данных службы, независимо от Monero.
+The exception to this is when a service (or group of colluding services) decides to actively attack you, one address at the time, with the so-called [Janus attack](https://web.getmonero.org/2019/10/18/subaddress-janus.html), which risks them losing funds. If you need perfect unlinkability of your receivables, the only solution remains to use a separate seed (separate Monero wallet).
+
+Also, note it won't help if you have an account with the service. Then your payouts are already linked in the service database, regardless of Monero.
 
 ## Групповое перечисление средств на счета​
 

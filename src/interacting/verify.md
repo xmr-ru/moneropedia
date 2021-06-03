@@ -48,7 +48,7 @@ binaryFate является одним из ведущих разработчи�
 
 Замените пример имени файла скачанным архивом:
 
-    file_name=monero-gui-linux-x64-v0.16.0.0.tar.bz2
+    file_name=monero-gui-linux-x64-v0.17.2.2.tar.bz2
 
     file_hash=`sha256sum $file_name | cut -c 1-64`
 

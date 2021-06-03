@@ -37,3 +37,8 @@
 - [Инфраструктура](infrastructure/index.md)
   - [Основная сеть, отладочная сеть и тестовая сеть](infrastructure/networks/networks.md)
   - [MoneroPulse](infrastructure/networks/moneropulse.md)
+  - [Сид-узлы Tor Onion и P2P сеть Monero](infrastructure/networks/tor-onion-p2p-seed-nodes.md)
+- [Холодный кошелёк](cold-storage/index.md)
+  - [Подписание транзакций в оффлайн-режиме](cold-storage/offline-transaction-signing.md)
+- [Запуск узла Monero](running-node/index.md)
+  - [Запуск узла Monero с поддержкой Tor Onion](running-node/open-node-tor-onion.md)

@@ -13,7 +13,7 @@
 Проект Monero отделяет логическую часть сетевых узлов от логической части кошельков. Логическая часть кошельков обеспечивается тремя независимыми пользовательскими интерфейсами: GUI, CLI и HTTP API.
 
 ```
-# cd monero-gui-v0.16.0.0
+# cd monero-gui-v0.17.1.9
 
 # ---- guide to Monero GUI ----
 
@@ -29,22 +29,22 @@ monero-wallet-rpc
 
 # ---- extra executable files -----------
 
-extra/monero-wallet-cli
-extra/monero-wallet-rpc
-extra/monero-blockchain-prune
-extra/monero-gen-trusted-multisig
-extra/monero-gen-ssl-cert
-extra/monero-blockchain-export
-extra/monero-blockchain-import
+extras/monero-wallet-cli
+extras/monero-wallet-rpc
+extras/monero-blockchain-prune
+extras/monero-gen-trusted-multisig
+extras/monero-gen-ssl-cert
+extras/monero-blockchain-export
+extras/monero-blockchain-import
 
 # ---- don't bother with these ----------
 
-extra/monero-blockchain-stats
-extra/monero-blockchain-mark-spent-outputs
-extra/monero-blockchain-prune-known-spent-data
-extra/monero-blockchain-usage
-extra/monero-blockchain-ancestry
-extra/monero-blockchain-depth
+extras/monero-blockchain-stats
+extras/monero-blockchain-mark-spent-outputs
+extras/monero-blockchain-prune-known-spent-data
+extras/monero-blockchain-usage
+extras/monero-blockchain-ancestry
+extras/monero-blockchain-depth
 ```
 
 ## Исполняемые файлы
@@ -55,8 +55,8 @@ extra/monero-blockchain-depth
 | `monero-wallet-gui`        | Логическая часть кошелька и __графический пользовательский интерфейс__. <br />Требует наличия запущенного демона `monerod`.
 | `monero-wallet-cli`        | Логическая часть кошелька и пользовательский интерфейс с __поддержкой командной строки__. <br />Требует наличия запущенного демона `monerod`.
 | `monero-wallet-rpc`        | Логическая часть кошелька и __HTTP API__ (протокол JSON-RPC). <br />Требует наличия запущенного демона `monerod`.
-| `monero-blockchain-prune`  | Обрезание существующего локального блокчейна. Позволяет сэкономить до 2/3 дискового пространства (по состоянию на июнь 2020 года сократить занимаемое место с 85 Гб до 28 Гб). Лучше использовать эту опцию, а не `monerod --prune-blockchain`, которая только логически освобождает место внутри файла, в то время как сам файл остаётся большим. При использовании `monero-blockchain-prune` создаётся сжатая копия файла блокчейна. См. [tutorial1](https://monero.stackexchange.com/questions/11454/how-do-i-utilize-blockchain-pruning-in-the-gui-monero-wallet-gui), [tutorial2](https://www.publish0x.com/solareclipse/howto-prune-shrink-the-database-of-the-monero-blockchain-on-xpgwjx).
-| `monero-gen-ssl-cert`      | Создание 4096-битного приватного ключа RSA и самоподписанного сертификата TLS для использования с RPC интерфейсом `monerod`. См. [pull request](https://github.com/monero-project/monero/pull/5495).
+| `monero-blockchain-prune`  | Обрезание существующего локального блокчейна. Позволяет сэкономить до 2/3 дискового пространства (сократить занимаемое до 45 Гб (по состоянию на январь 2021 года)). Лучше использовать эту опцию, а не `monerod --prune-blockchain`, которая только логически освобождает место внутри файла, в то время как сам файл остаётся большим. При использовании `monero-blockchain-prune` создаётся сжатая копия файла блокчейна. См. [tutorial1](https://monero.stackexchange.com/questions/11454/how-do-i-utilize-blockchain-pruning-in-the-gui-monero-wallet-gui), [tutorial2](https://www.publish0x.com/solareclipse/howto-prune-shrink-the-database-of-the-monero-blockchain-on-xpgwjx).
+| `monero-gen-ssl-cert`      | Создание 4096-битного приватного ключа RSA и самоподписанного сертификата TLS для использования с RPC интерфейсом `monerod`. Note, Monero daemon automatically generates TLS certificate on each restart. Manual generation with this tool is only useful if you want to pin TLS certificate fingerprint in your monero wallet. См. [pull request](https://github.com/monero-project/monero/pull/5495).
 | `monero-gen-trusted-multisig`          | Создание multisig-кошелька. <br />См. главу [Мультиподпись](/multisignature/multisignature.md).
 | `monero-blockchain-export` | Экспорт блокчейна в файл `blockchain.raw`.
 | `monero-blockchain-import` | Импорт файла `blockchain.raw`, в идеале — вашей собственной копии.
