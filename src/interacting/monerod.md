@@ -99,7 +99,8 @@ tail -f ~/.bitmonero/bitmonero.log           # watch the logs
 
 #### P2P cеть:
 
-TСледующие опции определяют участие вашего узла в одноранговой сети Monero.
+Следующие опции определяют участие вашего узла в одноранговой сети Monero.
+
 Данные опции отвечают за связь между узлами и **не влияют** на интерфейс между [кошельком и узлом](#node-rpc-api).
 
 Слово «узел» (node) и словосочетание «одноранговый узел» (peer) в данном контексте равнозначны и взаимозаменяемы.
@@ -111,6 +112,7 @@ TСледующие опции определяют участие вашего 
 | `--p2p-external-port`  | TCP порт «отслеживает» соединения p2p сети через ваш маршрутизатор. Опция актуальна, если вы используете NAT, но вам требуется отслеживать входящие соединения. Для этого необходимо установить соответствующий порт на вашем маршрутизаторе. Это делается для того, чтобы monerod знал, что необходимо слушать из вашей сети. Значение, используемое по умолчанию, — `0`
 | `--p2p-use-ipv6`       | Включение IPv6 для p2p (по умолчанию отключено)
 | `--p2p-bind-ipv6-address` | Привязка сетевого интерфейса IPv6 к сетевому протоколу p2p. Значение, используемое по умолчанию `::` привязывает его ко всем сетевым интерфейсам
+| `--p2p-bind-port-ipv6` | TCP port to listen for p2p network connections. By default same as IPv4 port for given nettype.
 | `--p2p-ignore-ipv4`    | Игнорировать неудачную привязку IPv4 к p2p. Эта опция пригодится только в том случае, если вы захотите использовать IPv6.
 | `--igd`                | Настройка распределения портов UPnP на маршрутизаторе («Шлюз интернет-устройства»). Один из вариантов: отключён `disabled` \| подключён `enabled` \| с задержкой `delayed` (по умолчанию установлен режим задержки). Используется, если вы работаете за NAT и хотите принимать входящие P2P соединения. Задержка означает, что подключение входящих соединений будет ожидаться в надежде, что UPnP не понадобится. Через некоторое время, если входящие соединения обнаружены не будут, будет осуществлена попытка распределить порты посредством UPnP. Если вы уверены в том, что вам необходим UPnP, подключите его, чтобы ускорить процесс.
 | `--hide-my-port`       | `monerod` по-прежнему будет открыт и будет отслеживать p2p порт. Тем не менее он не будет заявлять о себе как о кандидате для попадания в список одноранговых узлов. Технически он вернёт порту нулевое значение в ответ на попытку сопряжения (`node_data.my_port = 0` в функции `get_local_node_data`). В сущности, узлы, к которым вы подключаетесь, не будут сообщать ваш IP-адрес другим одноранговым узлам (это не совсем «сокрытие», скорее, это «неразглашение»).
@@ -125,9 +127,9 @@ TСледующие опции определяют участие вашего 
 | `--limit-rate`         | Задаёт одно и то же предельное значение для передачи входящих и исходящих данных. Во избежание путаницы лучше использовать `--limit-rate-up` и `--limit-rate-down`.
 | `--offline`            | Не принимать данные от одноранговых узлов и запретить исходящие подключения. Полезная опция для работы с локальной копией блокчейна.
 | `--allow-local-ip`     | Позволяет добавить локальный IP в список одноранговых узлов. Полезная опция с точки зрения отладки, если вам захочется запустить множество узлов на одном компьютере.
+| `--max-connections-per-ip` | Maximum number of connections allowed from the same IP address.
 
-
-#### Tor/I2P
+#### Tor/I2P и прокси
 
 Это экспериментальная опция. Возможно, было бы лучше всего начать с этого [руководства](https://github.com/monero-project/monero/blob/master/ANONYMITY_NETWORKS.md#p2p-commands).
 
@@ -136,6 +138,7 @@ TСледующие опции определяют участие вашего 
 | `--tx-proxy`           | Send out your local transactions through SOCKS5 proxy (Tor or I2P). Format:<br />`<network-type>,<socks-ip:port>[,max_connections][,disable_noise]` <br /><br />Example:<br />`./monerod --tx-proxy "tx-proxy=tor,127.0.0.1:9050,16"`<br /><br />This was introduced to make publishing transactions over Tor easier (no need for torsocks) while allowing clearnet for blocks at the same time (while torsocks affected everything). <br /><br />Adding `,disable_noise` disables Dandelion++ (will speed up tx broadcast but is otherwise not recommended). <br /><br />Note that forwarded transactions (those not originating from connected wallet) will still be relayed over clearnet.<br /><br />**Requires multiple `--add-peer`** to manually add onion-enabled p2p seed nodes - see [Tor onion seed nodes for Monero P2P network](/infrastructure/tor-onion-p2p-seed-nodes). See this [guide](https://github.com/monero-project/monero/blob/master/ANONYMITY_NETWORKS.md#p2p-commands) and [commit](https://github.com/monero-project/monero/pull/6021).
 | `--anonymous-inbound`  | Обеспечивает возможность подключения анонимных входящих соединений к вашему луковому P2P интерфейсу. Формат: <br />`<hidden-service-address>,<[bind-ip:]port>[,max_connections]`<br /><br />Example:<br />`./monerod --anonymous-inbound "rveahdfho7wo4b2m.onion:18083,127.0.0.1:18083,100"`.<br /><br />Очевидно, что сначала нужно настроить сервис в вашей конфигурации Tor. См. [руководство](https://github.com/monero-project/monero/blob/master/docs/ANONYMITY_NETWORKS.md#p2p-commands).
 | `--pad-transactions`   | Заполняет ретранслируемые транзакции до следующих 1024 байт с целью защиты от анализа объёма трафика. Использовать эту опцию имеет смысл только в том случае, если вы используете Tor или I2P. См. [коммит](https://github.com/monero-project/monero/pull/4787).
+| `--proxy`              | Network communication through proxy. Works with any service that supports SOCKS4, including Tor, i2p, and commercial VPN/proxy services. SOCKS5 support is anticipated in the future. Enabling this setting sends all traffic through this proxy. Can be used in conjunction with `--tx-proxy`, in which case transaction broadcasts originating from the connected wallet(s) will be sent through Tor or i2p as specified in `--tx-proxy`, and all other traffic will be sent through the SOCKS proxy. Format:<br />`<socks-ip:port>`
 
 #### RPC API узла
 
@@ -158,6 +161,7 @@ TСледующие опции определяют участие вашего 
 | `--rpc-use-ipv6`                | Включает IPv6 для RPC сервера (по умолчанию отключено).
 | `--rpc-ignore-ipv4`             | Игнорирует неудачную попытку привязки IPv4 к RPC. Эта опция пригодится только в том случае, если вы захотите использовать IPv6.
 | `--rpc-restricted-bind-ip`      | Позволяет задать IP адрес для взаимодействия с урезанной версией API. Урезанную версию API можно сделать общедоступной, что является необходимым для создания общедоступного узла Monero.
+| `--rpc-restricted-bind-ipv6-address` | IPv6 to listen on with the limited version of API. The limited API can be made public to create an Open Node. By default `::1` (localhost). Set it to `::` to listen on all interfaces.
 | `--rpc-restricted-bind-port`    | TCP-порт для взаимодействия с урезанной версией API. Можно использовать в сочетании с ``--rpc-restricted-bind-port`.
 | `--confirm-external-bind`       | Подтверждает, что вы сознательно установили `--rpc-bind-ip` как IP не локального хоста и вы понимаете возможные последствия.
 | `--restricted-rpc`              | Ограничивает API таким образом, что он слушает только команды и не выдаёт чувствительной или конфиденциальной информации. Следует отметить, что это не имеет работает вместе с опцией `--rpc-restricted-bind-port`, поскольку в конечном счёте у вас будет два ограниченных API.
@@ -170,6 +174,11 @@ TСледующие опции определяют участие вашего 
 | `--rpc-ssl-allow-chained`       | Позволяет использовать пользовательские объединённые сертификаты. Опция применима только в том случае, если у пользователя есть «настоящий» сертификат CA.
 | `--rpc-login`                   | Указывает `username[:password]` required to connect to API.
 | `--rpc-access-control-origins`  | Задаёт список источников (разделённых запятыми), которым разрешено совместное использование ресурсов. Эта опция будет полезна, если вы захотите использовать `monerod` напрямую в браузере, посредством JavaScript (скажем так, используя сценарий чистого сетевого приложения). Эта опция позволяет `monerod` создавать надлежащие заголовки ответов HTTP CORS. При использовании этой опции также будет необходимо установить `rpc-login`. Тем не менее обычно API используется конечным приложением напрямую, поэтому необходимость в этой опции отсутствует.
+| `--disable-rpc-ban`             | Do not ban hosts on RPC errors. May help to prevent monerod from banning traffic originating from the Tor daemon.
+| `rpc-payment-address`           | Restrict RPC to clients sending micropayment to this address.
+| `rpc-payment-difficulty`        | Restrict RPC to clients sending micropayment at this difficulty in thousands.
+| `rpc-payment-credits`           | Restrict RPC to clients sending micropayment, yields that many credits per payment in hundreds.
+| `rpc-payment-allow-free-loopback` | Allow free access from the loopback address (ie, the local host).
 
 #### Получение Monero
 
@@ -192,7 +201,7 @@ TСледующие опции определяют участие вашего 
 | `--db-sync-mode`                | Указывает опции синхронизации, используя формат:<br />`[safe|fast|fastest]:[sync|async]:[<nblocks_per_sync>[blocks]|<nbytes_per_sync>[bytes]]`<br /><br />По умолчанию используется следующий `fast:async:250000000bytes`.<br /><br />`fast:async:*` может повредить базу данных блокчейна в случае отказа системы. База не будет повреждена, если произойдёт только отказ `monerod`. Если вы беспокоитесь о возможном отказе системы, следует использовать `safe:sync`.
 | `--max-concurrency`             | Максимальное количество используемых при работе потоков. При нулевом значении (`0`), заданным по умолчанию, используется общее количество потоков CPU.
 | `--prep-blocks-threads`         | Максимальное количество потоков, используемое при вычислении хешей блоков (PoW) в группах. По умолчанию значение составляет `4`. Задайте меньшее значение, если не хотите, чтобы `monerod` излишне перегрузил ваш компьютер при синхронизации.
-| `--fast-block-sync`             | Синхронизация большую часть времени происходит при помощи «известных» хешей блоков. Значение `1` передаётся для включения, значение 0 для выключения. По умолчанию установлено в `1`. Обычно для каждого блока узел должен вычислить соответствующий хеш, чтобы проверить доказательство работы майнера. Поскольку алгоритм доказательства работы протокола CryptoNight, используемый Monero, довольно затратен (даже с точки зрения верификации), `monerod` предлагает пропустить эти вычисления для старых блоков. Другими словами, это механизм доверия двоичному файлу `monerod` в отношении действительности PoW старых блоков, повышающий скорость синхронизации.
+| `--fast-block-sync`             | Синхронизация большую часть времени происходит при помощи «известных» хешей блоков. Значение `1` передаётся для включения, значение 0 для выключения. По умолчанию установлено в `1`. Обычно для каждого блока узел должен вычислить соответствующий хеш, чтобы проверить доказательство работы майнера. Поскольку алгоритм доказательства работы протокола RandomX, используемый Monero, довольно затратен (даже с точки зрения верификации), `monerod` предлагает пропустить эти вычисления для старых блоков. Другими словами, это механизм доверия двоичному файлу `monerod` в отношении действительности PoW старых блоков, повышающий скорость синхронизации.
 | `--block-sync-size`             | Указывает, сколько блоков обрабатывается в одной группе во время синхронизации блокчейна. По умолчанию это количество составляет 20 блоков (сейчас) и составляло 100 блоков (ранее, то есть до версии v4). Значение, используемое по умолчанию, — `0`. Интуитивно чем больше блоков имеется, тем больший размер группы вы будете использовать. Пример: <br />`./monerod --block-sync-size=500`
 | `--bootstrap-daemon-address`    | host:port «начального узла загрузки», который подсоединённые к нему кошельки могут использовать, даже пока этот узел ещё не до конца синхронизирован. Пример: <br/>`./monerod --bootstrap-daemon-address=opennode.xmr-tw.org:18089`. Узел будет перенаправлять запросы на RPC загрузочного узла и кошелёк будет обрабатывать их автоматически. Очевидно, такая фаза загрузки влияет на анонимность, как и в случае, когда удалённый узел используется напрямую.
 | `--bootstrap-daemon-login`      | Указывает username:password учётной записи демона начальной загрузки (если это требуется). Обычно открытые узлы не требуют какой-либо регистрации.
@@ -206,7 +215,7 @@ TСледующие опции определяют участие вашего 
 * для проведения экспериментов и обучения;
 * если у вас есть дешёвый доступ к ресурсам CPU.
 
-Тем не менее помните о том, что реальный майнинг происходит **в пулах** и при помощи высокопроизводительных **GPU и CPU**.
+Тем не менее помните о том, что реальный майнинг происходит **в пулах** (как вариант, p2pool) и при помощи высокопроизводительных **GPU и CPU**.
 
 | Опция                              | Описание
 |------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------
@@ -240,11 +249,14 @@ TСледующие опции определяют участие вашего 
 
 | Опция                 | Описание
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------
+| `--ban-list`          | Specify ban list file, one IP address per line. This was introduced as an emergency measure to deal with large DDoS attacks on Monero p2p network in Dec 2020 / Jan 2021. Example: <br />`./monerod --ban-list=block.txt`. Here is the popular [block.txt](https://gui.xmr.pm/files/block.txt) file.<br /><br />It is **not recommended** to statically ban any IP addresses unless you absolutely need to. Banning IPs often excludes the most vulnerable users who are forced to operate entirely behind Tor or other anonymity networks.
+| `--enable-dns-blocklist` | Similar to `--ban-list` but instead of a static file uses dynamic IP blocklist available as DNS TXT entries. The DNS blocklist is centrally managed by Monero contributors. It is **not recommended** unless in emergency situations.
 | `--fluffy-blocks`     | Ретранслирует «пушистые» блоки. Используется по умолчанию. Пушистый блок включает в себя только заголовок и список идентификаторов (ID) транзакций.
 | `--no-fluffy-blocks`  | Ретранслирует классические полные блоки. Классический блок включает в себя все транзакции.
 | `--show-time-stats`   | В официальной документации написано: «Показывает временную статистику при обработке блоков/транзакций и синхронизации диска», но не даёт никакого результата при обычной синхронизации блокчейна.
 | `--zmq-rpc-bind-ip`   | IP-адрес, который будет отслеживать ZMQ RPC сервером. По умолчанию устанавливается как `127.0.0.1`. Пока эта опция не получила широкого распространения, так как интерфейс ZMQ не обеспечивает значимого преимущества в сравнении с классическим интерфейсом JSON-RPC.
 | `--zmq-rpc-bind-port` | Порт, который будет отслеживать ZMQ RPC сервер. По умолчанию устанавливается как `18082` для основной сети (mainnet), `38082` для отладочной сети (stagenet) и `28082` для тестовой сети (testnet).
+| `--zmq-pub`           | Address for ZMQ pub - `tcp://ip:port` or `ipc://path`
 | `--db-type`           | Указывает тип базы данных. По умолчанию используется `lmdb` (он же и является единственном доступным типом базы данных).
 
 ## Команды​
@@ -253,7 +265,8 @@ TСледующие опции определяют участие вашего 
 Команды выполняются при работающей программе.
 Их названия соответствуют шаблону `command_name`.
 
-Команды сгруппированы для простоты понимания. Сам демон не группирует команды каким бы то ни было образом.
+Команды сгруппированы для простоты понимания.
+Сам демон не группирует команды каким бы то ни было образом.
 
 Пример использования приводится в разделе, посвящённом первому запуску Monero.
 Команды также можно вводить посредством командной строки работающего `monerod` (если программа будет доступна).
